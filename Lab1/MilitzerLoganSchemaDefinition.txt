@@ -1,0 +1,24 @@
+Artifact(Artifact_Number varchar(25), Dimensions_cm_LxWxH varchar(50), Weight_KG decimal, Material varchar(100), Humidity decimal)
+Keys of Artifact: {Artifact_Number}
+
+Employees(Last_Name varchar(50), First_Name varchar(50), Social_Insurance_Number int, Address varchar(100), Phone_Number varchar(25), Salary varchar(35), Occupation_Technician_or_Guide varchar(20), Union_Number varchar(20))
+Keys of Employees: {Social_Insurance_Number}
+
+Technician(Social_Insurance_Number int, Conservationist_y_n varchar(1), Restorer_y_n varchar(1), Material_Expertise varchar(1000))
+Forgein Keys of Technician: {Social_Insurance_Number}
+
+MuseumGuide(Social_Insurance_Number int, Last_Exam_Date_YYYYdashMMdashDD date)
+Forgein Keys of MuseumGuide: {Social_Insurance_Number}
+
+Test(Social_Insurance_Number int, Ministry_of_Culture_Test_Number varchar(15), Test_Name varchar(50))
+Keys of Test: {Ministry_of_Culture_Test_Number}
+Forgein Keys of Test: {Social_Insurance_Number}
+
+TestDetails(Ministry_of_Culture_Test_Number varchar(15), Artifact_Number varchar(25), Score decimal, Max_Score decimal, Time_conducted_in_Military_Format_00_colon_00 time, Date_YYYYdashMMdashDD date, Hours_Spent_on_Test decimal)
+Forgein Keys of TestDetails: {Ministry_of_Culture_Test_Number, Artifact_Number}
+
+
+There are 6 tables in the artifact museum schema. The Artifact table has the primary key as the artifact number because it must be unique and not null. It's a varchar because the example provides letters in the string sequence. In the schema, an attribute is a varchar if alphabet characters are included in the entry. An attribute is an int or decimal depending on whether precision is required. The Employees table has the SIN as the primary key as it's a unique attribute; it's a foreign key in most tables. I separated the technician and guide entries into their own tables because they don't have the same duties; this reduces clutter in the Employees table. The Technician table states whether they're a conservationist, restorer, and their material expertise. The Guides table shows the latest exam date. The Test table to overviews the test with the test number being a primary key. A SIN attribute was added because an employee must conduct the test. The Test Details table references the test number and details the test. I chose date and time data types for 2 of the attributes in this table because that's what is required.
+
+
+

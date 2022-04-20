@@ -1,0 +1,94 @@
+CREATE TABLE Artifact (
+Artifact_Number varchar(25) PRIMARY KEY,
+Dimensions_cm_LxWxH varchar(50),
+Weight_KG decimal,
+Material varchar(100),
+Humidity decimal
+);
+
+
+CREATE TABLE Employees (
+Last_Name varchar(50), 
+First_Name varchar(50), 
+Social_Insurance_Number int PRIMARY KEY, 
+Address varchar(100), 
+Phone_Number varchar(25), 
+Salary varchar(35), 
+Occupation_Technician_or_Guide varchar(20), 
+Union_Number varchar(20)
+);
+
+
+CREATE TABLE Technician (
+Social_Insurance_Number int REFERENCES Employees(Social_Insurance_Number), 
+Conservationist_y_n varchar(1), 
+Restorer_y_n varchar(1),
+Material_Expertise varchar(100)
+);
+
+
+CREATE TABLE MuseumGuide (
+Social_Insurance_Number int REFERENCES Employees(Social_Insurance_Number), 
+Last_Exam_Date_YYYYdashMMdashDD date
+);
+
+
+CREATE TABLE Test (
+Social_Insurance_Number int REFERENCES Employees(Social_Insurance_Number),
+Ministry_of_Culture_Test_Number varchar(15) PRIMARY KEY, 
+Test_Name varchar(50)
+);
+
+
+CREATE TABLE TestDetails (
+Ministry_of_Culture_Test_Number varchar(15) REFERENCES Test(Ministry_of_Culture_Test_Number), 
+Artifact_Number varchar(25) REFERENCES Artifact(Artifact_Number),
+Score decimal, 
+Max_Score decimal, 
+Time_conducted_in_Military_Format_00_colon_00 time, 
+Date_YYYYdashMMdashDD date, 
+Hours_Spent_on_Test decimal,
+CHECK(Score >= 0),
+CHECK (Score =< Max_Score),
+CHECK (Hours_Spent_on_Test >= 0)
+);
+
+
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL6900', '50X60X70', 96.2, 'Gold', 62.5);
+
+INSERT INTO Employees(Last_Name, First_Name, Social_Insurance_Number, Address , Phone_Number, Salary, Occupation_Technician_or_Guide, Union_Number) VALUES('Dough', 'John', 123456789, '1234 Stones Dr.', '(604)-345-4321', '$80,000', 'Technician', 'UN123465');
+
+INSERT INTO Employees(Last_Name, First_Name, Social_Insurance_Number, Address , Phone_Number, Salary, Occupation_Technician_or_Guide, Union_Number) VALUES('Dong', 'Bob', 987654321, '4321 Lit Dr.', '(604)-545-3321', '$70,000', 'Guide', 'UN654321');
+
+INSERT INTO Technician (Social_Insurance_Number, Conservationist_y_n, Restorer_y_n, Material_Expertise) VALUES(123456789, 'y', 'y', 'Gold and Silver');
+
+INSERT INTO MuseumGuide(Social_Insurance_Number, Last_Exam_Date_YYYYdashMMdashDD) VALUES(987654321, '2017-12-05');
+
+INSERT INTO Test (Social_Insurance_Number, Ministry_of_Culture_Test_Number, Test_Name) VALUES(123456789, 'BC345676', 'Test air');
+
+INSERT INTO TestDetails (Ministry_of_Culture_Test_Number, Artifact_Number, Score, Max_Score, Time_conducted_in_Military_Format_00_colon_00, Date_YYYYdashMMdashDD, Hours_Spent_on_Test) VALUES('BC345676', 'CL6900', 5.5, 6, '13:45', '2018-12-18', 6.2);
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL4021', '70X60X20', 68.1, 'Aluminum', 76.1);
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL6089', '50X60X90', 72.8, 'Fabric', 71.9);
+
+INSERT INTO Employees(Last_Name, First_Name, Social_Insurance_Number, Address , Phone_Number, Salary, Occupation_Technician_or_Guide, Union_Number) VALUES('Martyn', 'Zedd', 456789000, '5204 Send Dr.', '(604)-365-4396', '$89,000', 'Technician', 'UN123465');
+
+INSERT INTO Technician(Social_Insurance_Number, Conservationist_y_n, Restorer_y_n, Material_Expertise) VALUES(456789000, 'n', 'y', 'Fabric, Glass, and Marble');
+
+INSERT INTO Test (Social_Insurance_Number, Ministry_of_Culture_Test_Number, Test_Name) VALUES(456789000, 'BC689689', 'Fabric Quality');
+
+INSERT INTO TestDetails (Ministry_of_Culture_Test_Number, Artifact_Number, Score, Max_Score, Time_conducted_in_Military_Format_00_colon_00, Date_YYYYdashMMdashDD, Hours_Spent_on_Test) VALUES('BC689689', 'CL6089', 9, 10, '17:29', '2018-09-30', 1.2);
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL0086', '10X100X250', 109.8, 'Glass', 10.5);
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL6890', '15X150X295', 10.2, 'Fabric', 19.6);
+
+INSERT INTO Artifact(Artifact_Number, Dimensions_cm_LxWxH, Weight_KG, Material, Humidity) VALUES ('CL9968', '10X178X25', 169.8, 'Platinum and Diamond', 10.5);
+
+INSERT INTO Test (Social_Insurance_Number, Ministry_of_Culture_Test_Number, Test_Name) VALUES(123456789, 'BC987123', 'Gold Purity');
+
+INSERT INTO TestDetails (Ministry_of_Culture_Test_Number, Artifact_Number, Score, Max_Score, Time_conducted_in_Military_Format_00_colon_00, Date_YYYYdashMMdashDD, Hours_Spent_on_Test) VALUES('BC987123', 'CL6900', 79, 100, '09:59', '2018-02-14', 2.6);
+
+
